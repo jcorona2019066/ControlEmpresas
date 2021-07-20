@@ -50,7 +50,7 @@ function crearAdmin (req , res) {
 
 function registrarEmpresas (req, res){
     var empresasModel = Empresas();
-    var adminId = req.user.sub;
+    //var adminId = req.user.sub;
     var params = req.body;
 
   
@@ -61,14 +61,14 @@ function registrarEmpresas (req, res){
         despido: 0,
         cantidadActual:[]
     }
-    empresasModel.adminEmpresa = req.user.sub
+    //empresasModel.adminEmpresa = req.user.sub
     
     Empresas.find({ 
         $or: [
             {nombreEmpresa: empresasModel.nombreEmpresa},
             {password: empresasModel.password}
         ]
-    }).exec(adminId,(err, empresaEncontrada) => {
+    }).exec((err, empresaEncontrada) => {
         if (err) return console.log({ mensaje: "error en la peticion para registrar empresa" });
         if (empresaEncontrada.length >= 1) {
             return res.status(500).send({ mensaje:"Ya existe la Empresa"});
